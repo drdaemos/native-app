@@ -1,4 +1,4 @@
-var request = require('request');
+var http = require('request-promise');
 
 class XcartApi {
   constructor(params) {
@@ -10,19 +10,33 @@ class XcartApi {
 
   getCategories() {
     let route = this.getRoutes()['categories'];
+
+    return performRequest(route);
   }
 
-  getProducts(categoryId) {
+  getProducts(categoryId, offset = 0, length = 6) {
     let route = this.getRoutes()['products'];
-    let url = this.buildUrl(route, params);
+
+    return performRequest(route, {
+      'category_id': categoryId,
+      'from': offset,
+      'size': length
+    });
   }
 
-  buildUrl(route, params) {
-    let queryParams = {
+  performRequest(route, params = {}) {
+    let queryParams = Object.assign({
+      'target': this.target,
       'lng': this.lng,
       'api_key': this.apiKey,
       'route': route
-    }
+    }, params);
+
+    return request({
+      uri: this.endpoint,
+      qs: queryParams,
+      json: true
+    });
   }
 
   getRoutes() {
