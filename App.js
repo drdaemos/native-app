@@ -1,18 +1,15 @@
 import React from 'react';
-import { createStore } from 'redux'
-import PageView from './components/PageView';
-import xcartApp from './reducers'
-
-function getInitialState() {
-  return {};
-}
-
-let store = createStore(xcartApp, getInitialState())
+import {
+  AppRegistry,
+} from 'react-native';
+import AppContainer from './components/AppContainer';
 
 export default class App extends React.Component {
   render() {
     return (
-      <PageView store={store} />
+      <AppContainer />
     );
   }
 }
+
+AppRegistry.registerComponent('App', () => App);

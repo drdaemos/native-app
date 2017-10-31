@@ -1,26 +1,38 @@
-var http = require('request-promise');
+import Frisbee from 'frisbee';
 
 class XcartApi {
   constructor(params) {
-    this.endpoint = 'https://mobile.x-cart.com/cart.php'
+    this.endpoint = 'https://mobile.x-cart.com'
+    this.path = '/cart.php'
     this.target = 'catalog_json_api'
     this.apiKey = params['api_key']
     this.lng = params['lng']
+    this.client = new Frisbee({
+      baseURI: this.endpoint,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
   }
 
   getCategories() {
     let route = this.getRoutes()['categories'];
 
-    return performRequest(route);
+    return this.performRequest(route).then(function(response) {
+      return response.body.data;
+    });
   }
 
   getProducts(categoryId, offset = 0, length = 6) {
     let route = this.getRoutes()['products'];
 
-    return performRequest(route, {
+    return this.performRequest(route, {
       'category_id': categoryId,
       'from': offset,
       'size': length
+    }).then(function(response) {
+      return response.data;
     });
   }
 
@@ -32,10 +44,8 @@ class XcartApi {
       'route': route
     }, params);
 
-    return request({
-      uri: this.endpoint,
-      qs: queryParams,
-      json: true
+    return this.client.get(this.path, {
+      body: queryParams
     });
   }
 
@@ -52,6 +62,4 @@ let params = {
   'lng': 'en'
 }
 
-let instance = new XcartApi(params)
-
-export default instance;
+export default instance = new XcartApi(params);

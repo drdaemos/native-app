@@ -1,15 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-export default class Category extends React.Component {
+export default class CategoryItem extends React.Component {
   constructor(props) {
     super(props)
   }
   render() {
-    const { categoryId } = this.props
     return (
       <View style={styles.container}>
-        <Text> {categoryId} </Text>
+        <Text>{this.props.name}</Text>
       </View>
     );
   }
@@ -17,6 +16,7 @@ export default class Category extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    border: "1px solid"
+    borderWidth: 1,
+    borderStyle: 'solid'
   },
 });
