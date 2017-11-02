@@ -1,19 +1,19 @@
 import { connect } from 'react-redux'
-import { updateCategories } from '../actions'
-import Categories from '../components/Categories'
+import { updateProducts } from '../actions'
+import Products from '../components/Products'
 import XcartApi from '../services/XcartApi'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    categories: state.categories
+    products: state.products ? state.products[ownProps.navigation.state.params.categoryId] : null
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    updateCategories: () => {
-      XcartApi.getCategories().then((data) => {
-        dispatch(updateCategories(data))
+    updateProducts: (offset = 0) => {
+      XcartApi.getProducts(ownProps.navigation.state.params.categoryId, offset).then((data) => {
+        dispatch(updateProducts(data, ownProps.navigation.state.params.categoryId))
       })
     }
   }
@@ -29,8 +29,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     };
 };
 
-export default XcartCategories = connect(
+export default XcartProducts = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(Categories)
+)(Products)

@@ -28,11 +28,13 @@ class XcartApi {
     let route = this.getRoutes()['products'];
 
     return this.performRequest(route, {
-      'category_id': categoryId,
-      'from': offset,
-      'size': length
+      data: {
+        category_id: categoryId,
+        from: offset,
+        size: length
+      }
     }).then(function(response) {
-      return response.data;
+      return response.body.data;
     });
   }
 
@@ -44,9 +46,13 @@ class XcartApi {
       'route': route
     }, params);
 
-    return this.client.get(this.path, {
-      body: queryParams
-    });
+    return this.client
+      .get(this.path, {
+        body: queryParams
+      })
+      .catch(() => {
+        console.error(arguments);
+      })
   }
 
   getRoutes() {

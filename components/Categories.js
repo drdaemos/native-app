@@ -9,29 +9,31 @@ export default class Categories extends React.Component {
   };
   constructor(props) {
     super(props)
-    this.props.updateCategories();
+    if (!this.props.redux.state.categories) {
+      this.props.redux.actions.updateCategories();      
+    }
   }
   getCategories() {
-    return this.props.categories 
-      ? this.props.categories.map((item) => {
-        return (<CategoryItem name={item.name} key={item.id} />);
+    return this.getNavigationParams() && this.getNavigationParams().filtered
+      ? this.getNavigationParams().filtered
+      : this.props.redux.state.categories;
+  }
+  getNavigationParams() {
+    return typeof (this.props.navigation.state.params) !== 'undefined'
+      ? this.props.navigation.state.params
+      : null;
+  }
+  renderCategories(categories) {
+    return categories
+      ? categories.map((item) => {
+        return (<CategoryItem name={item.name} key={item.id} categoryId={item.id} subcategories={item.subcategories} navigation={this.props.navigation} />);
       })
       : null;
   }
   render() {
-    const { navigate } = this.props.navigation;
-    const categories = this.getCategories();
     return (
       <ScrollView style={styles.container}>
-        {categories}
-        <Button
-          onPress={() => navigate('Subcategories', { categoryId: 5 })}
-          title="Toys subcategories"
-        />
-        <Button
-          onPress={() => navigate('Products', { categoryId: 4 })}
-          title="Apparel products"
-        />
+        {this.renderCategories(this.getCategories())}
       </ScrollView>
     );
   }

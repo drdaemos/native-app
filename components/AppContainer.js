@@ -4,15 +4,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import xcartApp from '../reducers'
 
-function getInitialState() {
-  return {
-    categories: [
-        {name: 'Test Categories', id: 1}
-    ],
-  };
-}
-
-let store = createStore(xcartApp, getInitialState())
+let store = createStore(xcartApp)
 
 export default class AppContainer extends React.Component {
   render() {
