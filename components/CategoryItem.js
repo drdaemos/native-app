@@ -7,9 +7,9 @@ export default class CategoryItem extends React.Component {
   }
   _onClickHandler() {
     if (this.props.subcategories instanceof Array && this.props.subcategories.length > 0) {
-      this.props.navigation.navigate('Categories', { categoryId: this.props.categoryId, filtered: this.props.subcategories })        
+      this.props.navigation.navigate('Categories', { categoryId: this.props.categoryId, title: this.props.name, filtered: this.props.subcategories })        
     } else {        
-      this.props.navigation.navigate('Products', { categoryId: this.props.categoryId, count: this.props.productsCount })
+      this.props.navigation.navigate('Products', { categoryId: this.props.categoryId, title: this.props.name, count: this.props.productsCount })
     }
   }
   render() {
@@ -25,7 +25,8 @@ export default class CategoryItem extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 80,
+    margin: 10,
+    minHeight: 100,
     borderWidth: 1,
     borderStyle: 'solid'
   },

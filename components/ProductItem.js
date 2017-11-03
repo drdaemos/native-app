@@ -17,7 +17,8 @@ export default class ProductItem extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 80,
+    margin: 10,
+    minHeight: 200,
     borderWidth: 1,
     borderStyle: 'solid'
   },

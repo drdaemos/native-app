@@ -4,9 +4,6 @@ import { StyleSheet } from 'react-native';
 import CategoryItem from './CategoryItem';
 
 export default class Categories extends React.Component {
-  static navigationOptions = {
-    title: 'Categories screen',
-  };
   constructor(props) {
     super(props)
     if (!this.props.redux.state.categories) {

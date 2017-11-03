@@ -4,9 +4,6 @@ import { StyleSheet } from 'react-native';
 import ProductItem from './ProductItem';
 
 export default class Products extends React.Component {
-  static navigationOptions = {
-    title: 'Products screen',
-  };
   constructor(props) {
     super(props)
     this.state = { refreshing: false }
@@ -67,6 +64,7 @@ export default class Products extends React.Component {
         renderItem={this._renderItem.bind(this)}
         onEndReached={this._onRefresh.bind(this)}
         refreshing={this.state.refreshing}
+        onEndReachedThreshold={1}
       />
     );
   }

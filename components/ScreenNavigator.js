@@ -5,9 +5,15 @@ import Products from './Products';
 
 export default ScreenNavigator = StackNavigator({
   Categories: {
-    screen: XcartCategories
+    screen: XcartCategories,
+    navigationOptions: ({navigation}) => ({
+      title: navigation.state.params ? `${navigation.state.params.title}` : 'Categories',
+    }),
   },
   Products: {
-    screen: XcartProducts
+    screen: XcartProducts,
+    navigationOptions: ({navigation}) => ({
+      title: navigation.state.params ? `${navigation.state.params.title}` : 'Products',
+    }),
   }
 });
