@@ -9,7 +9,7 @@ export default class CategoryItem extends React.Component {
     if (this.props.subcategories instanceof Array && this.props.subcategories.length > 0) {
       this.props.navigation.navigate('Categories', { categoryId: this.props.categoryId, filtered: this.props.subcategories })        
     } else {        
-      this.props.navigation.navigate('Products', { categoryId: this.props.categoryId })
+      this.props.navigation.navigate('Products', { categoryId: this.props.categoryId, count: this.props.productsCount })
     }
   }
   render() {

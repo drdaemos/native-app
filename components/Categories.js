@@ -26,7 +26,7 @@ export default class Categories extends React.Component {
   renderCategories(categories) {
     return categories
       ? categories.map((item) => {
-        return (<CategoryItem name={item.name} key={item.id} categoryId={item.id} subcategories={item.subcategories} navigation={this.props.navigation} />);
+        return (<CategoryItem name={item.name} key={item.id} categoryId={item.id} subcategories={item.subcategories} productsCount={item.products} navigation={this.props.navigation} />);
       })
       : null;
   }

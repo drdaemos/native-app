@@ -5,14 +5,14 @@ import XcartApi from '../services/XcartApi'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    products: state.products ? state.products[ownProps.navigation.state.params.categoryId] : null
+    products: state.products ? state.products[ownProps.navigation.state.params.categoryId] : null,
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     updateProducts: (offset = 0) => {
-      XcartApi.getProducts(ownProps.navigation.state.params.categoryId, offset).then((data) => {
+      return XcartApi.getProducts(ownProps.navigation.state.params.categoryId, offset).then((data) => {
         dispatch(updateProducts(data, ownProps.navigation.state.params.categoryId))
       })
     }
